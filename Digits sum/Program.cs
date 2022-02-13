@@ -11,22 +11,22 @@
 
         internal static int SolutionPrimeiro(int N)
         {
-            int sum = GetAlgSum(N) * 2;
-            for (int i = N; i < int.MaxValue; i++)
+            int sum = GetSum(N) * 2;
+            for (int i = N + 1; i < int.MaxValue; i++)
             {
-                if (GetAlgSum(i) == sum)
+                if (GetSum(i) == sum)
                     return i;
             }
             return 0;
         }
 
-        internal static int GetAlgSum(int N)
+        internal static int GetSum(int N)
         {
-            string aux = N.ToString();
             int sum = 0;
-            for (int i = 0; i < aux.Length; i++)
+            while (N > 0)
             {
-                sum += int.Parse(aux[i].ToString());
+                sum += N % 10;
+                N /= 10;
             }
             return sum;
         }
