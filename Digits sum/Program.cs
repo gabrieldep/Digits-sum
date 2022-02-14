@@ -4,12 +4,12 @@
     {
         public static void Main()
         {
-            Console.WriteLine(SolutionPrimeiro(14) == 19 ? "Correto" : "Errado");
-            Console.WriteLine(SolutionPrimeiro(10) == 11 ? "Correto" : "Errado");
-            Console.WriteLine(SolutionPrimeiro(99) == 9999 ? "Correto" : "Errado");
+            Console.WriteLine(Solution(14) == 19 ? "Correto" : "Errado");
+            Console.WriteLine(Solution(10) == 11 ? "Correto" : "Errado");
+            Console.WriteLine(Solution(99) == 9999 ? "Correto" : "Errado");
         }
 
-        internal static int SolutionPrimeiro(int N)
+        internal static int Solution(int N)
         {
             int sum = GetSum(N) * 2;
             for (int i = N + 1; i < int.MaxValue; i++)
