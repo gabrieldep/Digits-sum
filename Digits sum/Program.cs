@@ -4,6 +4,7 @@
     {
         public static void Main()
         {
+            Console.WriteLine(Solution(765) == 9999 ? "Correto" : "Errado");
             Console.WriteLine(Solution(14) == 19 ? "Correto" : "Errado");
             Console.WriteLine(Solution(10) == 11 ? "Correto" : "Errado");
             Console.WriteLine(Solution(99) == 9999 ? "Correto" : "Errado");
@@ -12,12 +13,29 @@
         internal static int Solution(int N)
         {
             int sum = GetSum(N) * 2;
-            for (int i = N + 1; i < int.MaxValue; i++)
+            int i = N;
+            while (true)
             {
+                i = GetNextCompare(i);
                 if (GetSum(i) == sum)
                     return i;
             }
-            return 0;
+        }
+
+        internal static int GetNextCompare(int N)
+        {
+            var digits = N.ToString().Select(c => c - '0').ToArray();
+            int sum = GetSum(N) * 2;
+            for (int i = digits.Length - 1; i >= 0; i--)
+                if (digits[i] != 9)
+                {
+                    digits[i] = digits[i] + 1;
+                    int result = 0;
+                    for (int j = 0; j < digits.Length; j++)
+                        result = result * 10 + digits[j];
+                    return result;
+                }
+            return N + (int)Math.Pow(10, digits.Length);
         }
 
         internal static int GetSum(int N)
