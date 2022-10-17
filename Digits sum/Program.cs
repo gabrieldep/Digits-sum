@@ -13,29 +13,26 @@
         internal static int Solution(int N)
         {
             int sum = GetSum(N) * 2;
-            int i = N;
-            while (true)
-            {
-                i = GetNextCompare(i);
+            for (int i = N; i < int.MaxValue; GetNextCompare(ref i))
                 if (GetSum(i) == sum)
                     return i;
-            }
+            return -1;
         }
 
-        internal static int GetNextCompare(int N)
+        internal static void GetNextCompare(ref int N)
         {
-            var digits = N.ToString().Select(c => c - '0').ToArray();
-            int sum = GetSum(N) * 2;
-            for (int i = digits.Length - 1; i >= 0; i--)
-                if (digits[i] != 9)
-                {
-                    digits[i] = digits[i] + 1;
-                    int result = 0;
-                    for (int j = 0; j < digits.Length; j++)
-                        result = result * 10 + digits[j];
-                    return result;
-                }
-            return N + (int)Math.Pow(10, digits.Length);
+            var digits = N.ToString().Select(c => c - '0').ToList();
+            if (digits.All(d => d == 9))
+            {
+                N += (int)Math.Pow(10, digits.Count);
+                return;
+            }
+            var i = digits.LastIndexOf(digits.Last(a => a != 9));
+            digits[i] = digits[i] + 1;
+            int result = 0;
+            for (int j = 0; j < digits.Count; j++)
+                result = result * 10 + digits[j];
+            N = result;
         }
 
         internal static int GetSum(int N)
